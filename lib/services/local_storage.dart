@@ -13,5 +13,17 @@ class LocalStorage {
     var cache=prefs.getString('user');
     return cache;
   }
+  static ValueNotifier<bool> flagTheme = ValueNotifier<bool>(true);
+  static ValueNotifier<bool> flagTask = ValueNotifier<bool>(true);
+  guardarValor(valor) async {
+    flagTheme.value = valor;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('flagTheme', flagTheme.value);
+  }
+
+  leerValor() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    flagTheme.value = prefs.getBool('flagTheme') ?? false;
+  }
 }
 //Practica 3

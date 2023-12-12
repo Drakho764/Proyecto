@@ -1,13 +1,21 @@
+import 'package:flutter/material.dart';
 import 'package:proyecto/home.dart';
-import 'package:proyecto/login_screen.dart';
-import 'package:proyecto/splash.dart';
+import 'package:proyecto/screens/add_carrera.dart';
+import 'package:proyecto/screens/add_profe.dart';
+import 'package:proyecto/screens/add_task.dart';
+import 'package:proyecto/screens/carrera_screen.dart';
+import 'package:proyecto/screens/profesor_screen.dart';
+import 'package:proyecto/task_screen.dart';
 
-const String SplashRout ="/splash";
-const String HomeRoute ="/home";
-const String LoginRoute ="/login";
 
-final routes ={
-  HomeRoute: (context) => const Home(),
-  LoginRoute: (context) =>const LoginScreen(),
-  SplashRout: (context) => SplashView()
-};
+Map<String,WidgetBuilder> getRoutes(){
+  return{
+    '/dash': (BuildContext context) => Home(),
+    '/task' : (BuildContext context) => TaskScreen(),
+    '/add' : (BuildContext context) => AddTask(),
+    '/addProfe': (BuildContext context) => AddProfesor(),
+    '/profesor': (BuildContext context) => ProfesorScreen(),
+    '/carrera': (BuildContext context) => CarreraScreen(),
+    '/addCarrera': (BuildContext context) => AddCarrera(),
+  };
+}

@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       light: ThemeData.light(),
       initial: AdaptiveThemeMode.light,//Practica 3
       builder: (theme, darkTheme) {
-        return GetMaterialApp(
+        return MaterialApp(
           title: 'Food App',
           theme: theme,
           darkTheme: darkTheme,

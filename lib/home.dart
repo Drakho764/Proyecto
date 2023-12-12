@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:proyecto/consts.dart';
 import 'package:proyecto/login_screen.dart';
 import 'package:proyecto/routes.dart';
+import 'package:proyecto/screens/calendar_screen.dart';
+import 'package:proyecto/screens/carrera_screen.dart';
+import 'package:proyecto/screens/profesor_screen.dart';
 import 'package:proyecto/services/local_storage.dart';
+import 'package:proyecto/services/notificacion_services.dart';
+import 'package:proyecto/task_screen.dart';
 const bgColorD = Color(0xff232227);
 const bgColorW = Color.fromARGB(255, 245, 245, 245);
 var shadowColor = Colors.black.withOpacity(0.4);
@@ -325,6 +330,45 @@ class _HomeState extends State<Home> {
               }
               ) ,
           ),
+          ListTile(
+            
+            leading: Icon(Icons.task_alt_outlined),
+            trailing: Icon(Icons.chevron_right),
+            title: Text('Task Manager'),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: ((context)=> const TaskScreen())))
+         
+          ),
+           ListTile(
+            leading: Icon(Icons.task_alt_outlined),
+            trailing: Icon(Icons.chevron_right),
+            title: Text('Ver mi Calendario'),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: ((context)=>  CalendarScreen())))
+          ),
+          /*ListTile(
+            title: const Text("Notification"),
+            trailing: const Icon(Icons.notifications),
+            onTap: () async {
+              NotificationService()
+                  .showNotification(title: 'Sample title', body: 'It works!');
+            },
+          ),*/
+          ListTile(
+            leading: Icon(Icons.task_alt_outlined),
+            trailing: Icon(Icons.chevron_right),
+            title: Text('Carrera'),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: ((context)=> const CarreraScreen())))
+          ),
+          ListTile(
+            leading: Icon(Icons.task_alt_outlined),
+            trailing: Icon(Icons.chevron_right),
+            title: Text('Profesor'),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: ((context)=> const ProfesorScreen())))
+          ),
+
+
+
+
+
           
           ListTile(
              //Image.asset('assets/naranja.png'),
