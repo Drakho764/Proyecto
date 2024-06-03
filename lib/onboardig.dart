@@ -1,9 +1,13 @@
+// ignore_for_file: unnecessary_string_escapes
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:proyecto/consts.dart';
 import 'package:proyecto/login_screen.dart';
 import 'package:proyecto/screen_widget.dart';
+
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});
@@ -34,8 +38,10 @@ class _OnboardigState extends State<Onboarding>{
     final size=MediaQuery.of(context).size;
 
     return Scaffold(
+      
       body: Stack(
         children: [
+           
           PageView.builder(
             onPageChanged: (value) {
               setState(() {
@@ -54,7 +60,7 @@ class _OnboardigState extends State<Onboarding>{
               width: size.width,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
+                children: [ 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(3, (index) => Container(
@@ -106,7 +112,11 @@ class _OnboardigState extends State<Onboarding>{
               style: TextStyle(
               fontSize: 16, fontWeight: FontWeight.bold,color: Colors.white,
             ),),),
-          )
+          ),
+          Center(
+            child: Lottie.asset("assets/animation/anima.json"),
+          ),
+
         ],
       ),
     );

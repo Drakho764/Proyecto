@@ -11,7 +11,8 @@ class ScreenWidget extends StatelessWidget{
     return Scaffold(
       body: Column(
       children: [
-        //Lottie.asset("assets\animation\bg-1.json"),
+        
+       Lottie.asset("assets\animation\anima.json"),
         Expanded(flex: 2,
         child: Container(
           padding: const EdgeInsets.all(100),

@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
             theme: theme,
             darkTheme: darkTheme,
             initialRoute:
-                initScreen == 0 || initScreen == null ? 'onboard' : 'login',
+                initScreen == 0 || initScreen == 1 ? 'onboard' : 'login',
             routes: {
               'onboard': (context) => Onboarding(),
               'login': (context) => SplashView()

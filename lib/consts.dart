@@ -10,7 +10,7 @@ const titles =[
 ];
 
 const abouts =[
-  'Encuentra el restarante perfecto ohsi, en unos cuantos clicks',
-  'Encuentra entre los diversosrestaurates que existen en este lado del universo',
+  'Encuentra el restaurante perfecto ohsi, en unos cuantos clicks',
+  'Encuentra entre los diversos restaurantes que existen en este lado del universo',
   'La entrega mas rapida del condado',
 ];
