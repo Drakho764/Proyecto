@@ -1,10 +1,14 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:proyecto/consts.dart';
 import 'package:proyecto/login_screen.dart';
 import 'package:proyecto/routes.dart';
 import 'package:proyecto/screens/calendar_screen.dart';
 import 'package:proyecto/screens/carrera_screen.dart';
+import 'package:proyecto/screens/fav_movie.dart';
+import 'package:proyecto/screens/popular_screen.dart';
 import 'package:proyecto/screens/profesor_screen.dart';
 import 'package:proyecto/services/local_storage.dart';
 import 'package:proyecto/services/notificacion_services.dart';
@@ -307,11 +311,29 @@ class _HomeState extends State<Home> {
         children: [
          const UserAccountsDrawerHeader( 
             currentAccountPicture: CircleAvatar(
-              backgroundImage: NetworkImage('https://i.pravatar.cc/300')
+              backgroundImage: NetworkImage('https://i.pravatar.cc/300'),
               ),
             accountName: Text('Paquirrito'),
             accountEmail: Text('paqui@gmail.com')
           ),
+
+/*
+          ListTile(
+            title:const Text( "Cambiar foto"),
+            trailing: Switch(
+              value: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light, 
+              onChanged: () async{
+                final results =await FilePicker.platform.pickFiles(
+                  allowMultiples: false,
+                  file: FileType.custom,
+                  allowedExtensions:('png','jpg',)
+                );
+                if(results==null){
+                  
+                }
+              },)
+                
+          ),*/
           ListTile(
             title:const Text( "Tema"),
             trailing: Switch(
@@ -364,8 +386,21 @@ class _HomeState extends State<Home> {
             title: Text('Profesor'),
             onTap: () => Navigator.push(context, MaterialPageRoute(builder: ((context)=> const ProfesorScreen())))
           ),
-
-
+          ListTile(
+            leading: Icon(Icons.movie),
+            trailing: Icon(Icons.chevron_right),
+            title: Text('Movies'),
+            subtitle: Text('Acerca de...'),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: ((context)=> const PopularScreen())))
+          
+          ),
+          ListTile(
+            leading: Icon(Icons.favorite),
+            trailing: Icon(Icons.chevron_right),
+            title: Text('Mis Pelis Favoritas'),
+            onTap: () => Navigator.push(context, MaterialPageRoute(builder: ((context)=> const FavMovie())))
+          
+          ),
 
 
 

@@ -80,6 +80,10 @@ class AgendaDB {
     var conexion = await database;
     return conexion!.delete(tblName, where: 'idTask = ?', whereArgs: [idTask]);
   }
+  Future<int> DELETEMOVIE(String tblName, int idM) async {
+    var conexion = await database;
+    return conexion!.delete(tblName, where: 'id = ?', whereArgs: [idM]);
+  }
   Future<int> DELETEPROF(String tblName, int idprof) async {
     var conexion = await database;
     return conexion!.delete(tblName, where: 'idProfe = ?', whereArgs: [idprof]);
@@ -162,4 +166,8 @@ class AgendaDB {
     var result = await conexion!.query('tblPopular', where: 'id=$id');
     return result.map((event) => PopularModel.fromMap(event)).toList();
   }
+  /*Future<List<Map<String, dynamic>>?> GETPOPULAR(int id) async {
+    var conexion = await database;
+    return await conexion?.rawQuery('select id from tblPopular where id=$id');
+  }*/
 }
