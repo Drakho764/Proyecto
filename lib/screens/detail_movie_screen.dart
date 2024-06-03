@@ -17,7 +17,9 @@ class DetailMovieScreen extends StatefulWidget {
   @override
   State<DetailMovieScreen> createState() => __DetailMovieScreenState();
 }
-  int fav=0;
+
+int fav = 0;
+
 class __DetailMovieScreenState extends State<DetailMovieScreen> {
   AgendaDB? agendaDB;
   @override
@@ -67,57 +69,64 @@ class __DetailMovieScreenState extends State<DetailMovieScreen> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            IconButton(
-                                alignment: Alignment.centerRight,
-                                onPressed: () => {
-                                      setState(() {
-                                        int? idd=widget.model.id;
-                                        if (agendaDB!.GETPOPULAR(idd!)==true) {
-                                          iconColor = Colors.white;
-                                          agendaDB!.DELETEMOVIE('tblPopular', idd!).then((value) {
-                                            var msj = (value > 0)
-                                                ? 'Eliminada de Favoritos!'
-                                                : 'Ocurrió un error';
-                                            var snackbar =
-                                                SnackBar(content: Text(msj));
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(snackbar);
-                                          });
-
-                                        } else {
-                                          iconColor = Colors.red;
-                                          agendaDB!.DELETEMOVIE('tblPopular', idd!);
-                                          agendaDB!.INSERT('tblPopular', {
-                                            'backdrop_path': widget.model.backdropPath,
-                                            'id':widget.model.id, 
-                                            'original_language' : widget.model.originalLanguage, 
-                                            'original_title':widget.model.originalTitle, 
-                                            'overview' :widget.model.overview, 
-                                            'popularity':widget.model.popularity, 
-                                            'poster_path':widget.model.posterPath, 
-                                            'release_date':widget.model.releaseDate, 
-                                            'title':widget.model.title, 
-                                            'vote_average':widget.model.voteAverage, 
-                                            'vote_count':widget.model.voteCount
-                                          }).then((value) {
-                                            var msj = (value > 0)
-                                                ? 'Agregada a Favoritos!'
-                                                : 'Ocurrió un error';
-                                            var snackbar =
-                                                SnackBar(content: Text(msj));
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(snackbar);
-                                          });
-                                        }
-                                      })
-                                    },
-                                icon: Icon(
-                                  Icons.favorite,
-                                  color: iconColor,
-                                ))
                           ],
                         ),
                       ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      IconButton(
+                          alignment: Alignment.centerRight,
+                          onPressed: () => {
+                                setState(() {
+                                  int? idd = widget.model.id;
+                                  if (agendaDB!.GETPOPULAR(idd!) == true) {
+                                    iconColor = Colors.white;
+                                    agendaDB!
+                                        .DELETEMOVIE('tblPopular', idd!)
+                                        .then((value) {
+                                      var msj = (value > 0)
+                                          ? 'Eliminada de Favoritos!'
+                                          : 'Ocurrió un error';
+                                      var snackbar =
+                                          SnackBar(content: Text(msj));
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackbar);
+                                    });
+                                  } else {
+                                    iconColor = Colors.red;
+                                    agendaDB!.DELETEMOVIE('tblPopular', idd!);
+                                    agendaDB!.INSERT('tblPopular', {
+                                      'backdrop_path':
+                                          widget.model.backdropPath,
+                                      'id': widget.model.id,
+                                      'original_language':
+                                          widget.model.originalLanguage,
+                                      'original_title':
+                                          widget.model.originalTitle,
+                                      'overview': widget.model.overview,
+                                      'popularity': widget.model.popularity,
+                                      'poster_path': widget.model.posterPath,
+                                      'release_date': widget.model.releaseDate,
+                                      'title': widget.model.title,
+                                      'vote_average': widget.model.voteAverage,
+                                      'vote_count': widget.model.voteCount
+                                    }).then((value) {
+                                      var msj = (value > 0)
+                                          ? 'Agregada a Favoritos!'
+                                          : 'Ocurrió un error';
+                                      var snackbar =
+                                          SnackBar(content: Text(msj));
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackbar);
+                                    });
+                                  }
+                                })
+                              },
+                          icon: Icon(
+                            Icons.favorite,
+                            color: iconColor,
+                          )),
                       const SizedBox(
                         height: 10,
                       ),

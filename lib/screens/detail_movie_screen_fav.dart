@@ -12,13 +12,15 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class DetailMovieScreenFav extends StatefulWidget {
   final PopularModel model;
-  DetailMovieScreenFav ({Key? key, required this.model}) : super(key: key);
+  DetailMovieScreenFav({Key? key, required this.model}) : super(key: key);
 
   @override
-  State<DetailMovieScreenFav > createState() => __DetailMovieFavScreenState();
+  State<DetailMovieScreenFav> createState() => __DetailMovieFavScreenState();
 }
-  int fav=0;
-class __DetailMovieFavScreenState extends State<DetailMovieScreenFav > {
+
+int fav = 0;
+
+class __DetailMovieFavScreenState extends State<DetailMovieScreenFav> {
   AgendaDB? agendaDB;
   @override
   void initState() {
@@ -67,29 +69,33 @@ class __DetailMovieFavScreenState extends State<DetailMovieScreenFav > {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            IconButton(
-                                alignment: Alignment.centerRight,
-                                onPressed: () => {
-                                      setState(() {
-                                        int? idd=widget.model.id;
-                                        agendaDB!.DELETEMOVIE('tblPopular', idd!).then((value) {
-                                            var msj = (value > 0)
-                                                ? 'Eliminada de Favoritos!'
-                                                : 'Ocurrió un error';
-                                            var snackbar =
-                                                SnackBar(content: Text(msj));
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(snackbar);
-                                          });
-                                          })
-                                    },
-                                icon: Icon(
-                                  Icons.heart_broken,
-                                  color: Colors.red,
-                                ))
                           ],
                         ),
                       ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      IconButton(
+                          alignment: Alignment.center,
+                          onPressed: () => {
+                                setState(() {
+                                  int? idd = widget.model.id;
+                                  agendaDB!
+                                      .DELETEMOVIE('tblPopular', idd!)
+                                      .then((value) {
+                                    var msj = (value > 0)
+                                        ? 'Eliminada de Favoritos!'
+                                        : 'Ocurrió un error';
+                                    var snackbar = SnackBar(content: Text(msj));
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(snackbar);
+                                  });
+                                })
+                              },
+                          icon: Icon(
+                            Icons.heart_broken,
+                            color: Colors.red,
+                          )),
                       const SizedBox(
                         height: 10,
                       ),
