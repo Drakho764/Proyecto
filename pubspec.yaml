@@ -54,6 +54,7 @@ dependencies:
   file_picker: ^6.1.1
   image_picker: ^1.0.7
   lottie: ^2.7.0
+  custom_refresh_indicator: ^3.1.0
 
 dev_dependencies:
   flutter_test:

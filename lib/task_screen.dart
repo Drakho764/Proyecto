@@ -1,3 +1,4 @@
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:proyecto/database/agendadb.dart';
 import 'package:proyecto/models/task_model.dart';
@@ -36,10 +37,10 @@ class _TaskScreenState extends State<TaskScreen> {
         title: Text("Tareas"),
         actions: [
           IconButton(
-              onPressed: () =>
-                  Navigator.push(context, MaterialPageRoute(builder: ((context)=> AddTask()))),
+              onPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: ((context) => AddTask()))),
               icon: Icon(Icons.task)),
-              /*IconButton(
+          /*IconButton(
               onPressed: () =>
                   Navigator.push(context, MaterialPageRoute(builder: ((context)=> FilterTextWidget()))),
               icon: Icon(Icons.search)),*/
@@ -61,32 +62,42 @@ class _TaskScreenState extends State<TaskScreen> {
           ),
         ],
       ),
-      body: ValueListenableBuilder(
-          valueListenable: LocalStorage.flagTask,
-          builder: (context, value, _) {
-            return FutureBuilder(
-                future: _getTareas(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<TaskModel>> snapshot) {
-                  if (snapshot.hasData) {
-                    return ListView.builder(
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return CardTaskWidget(
-                              taskModel: snapshot.data![index],
-                              agendaDB: agendaDB);
-                        });
-                  } else {
-                    if (snapshot.hasError) {
-                      return const Center(
-                        child: Text("Something was wrong"),
-                      );
+      body: CustomRefreshIndicator(
+        onRefresh: () => Future.delayed(const Duration(seconds: 3)),
+        child: ValueListenableBuilder(
+            valueListenable: LocalStorage.flagTask,
+            builder: (context, value, _) {
+              return FutureBuilder(
+                  future: _getTareas(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<TaskModel>> snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView.builder(
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return CardTaskWidget(
+                                taskModel: snapshot.data![index],
+                                agendaDB: agendaDB);
+                          });
                     } else {
-                      return const CircularProgressIndicator();
+                      if (snapshot.hasError) {
+                        return const Center(
+                          child: Text("Something was wrong"),
+                        );
+                      } else {
+                        return const CircularProgressIndicator();
+                      }
                     }
-                  }
-                });
-          }),
+                  });
+            }),
+        builder: (
+          BuildContext context,
+          Widget child,
+          IndicatorController controller,
+        ) {
+          return child;
+        },
+      ),
     );
   }
 

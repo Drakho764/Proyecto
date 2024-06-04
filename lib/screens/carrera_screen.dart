@@ -1,3 +1,4 @@
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:proyecto/database/agendadb.dart';
 import 'package:proyecto/models/carrera_model.dart';
@@ -33,32 +34,36 @@ class _CarreraScreenState extends State<CarreraScreen> {
               icon: Icon(Icons.task))
         ],
       ),
-      body: ValueListenableBuilder(
-          valueListenable: LocalStorage.flagTask,
-          builder: (context, value, _) {
-            return FutureBuilder(
-                future: agendaDB!.GETALLCARRERA(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<Carrera>> snapshot) {
-                  if (snapshot.hasData) {
-                    return ListView.builder(
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return CardCarreraWidget(
-                              carreraModel: snapshot.data![index],
-                              agendaDB: agendaDB);
-                        });
-                  } else {
-                    if (snapshot.hasError) {
-                      return const Center(
-                        child: Text("NO HAY CARRERAS REGISTRADAS"),
-                      );
+      body: CustomRefreshIndicator(
+        onRefresh: () => Future.delayed(const Duration(seconds: 3)),
+        child: ValueListenableBuilder(
+            valueListenable: LocalStorage.flagTask,
+            builder: (context, value, _) {
+              return FutureBuilder(
+                  future: agendaDB!.GETALLCARRERA(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<Carrera>> snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView.builder(
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return CardCarreraWidget(
+                                carreraModel: snapshot.data![index],
+                                agendaDB: agendaDB);
+                          });
                     } else {
-                      return const CircularProgressIndicator();
+                      if (snapshot.hasError) {
+                        return const Center(
+                          child: Text("NO HAY CARRERAS REGISTRADAS"),
+                        );
+                      } else {
+                        return const CircularProgressIndicator();
+                      }
                     }
-                  }
-                });
-          }),
+                  });
+            }),
+            builder: (BuildContext context, Widget child, IndicatorController controller) { return child; },
+      ),
     );
   }
 }
